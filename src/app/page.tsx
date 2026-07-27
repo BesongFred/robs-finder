@@ -4,7 +4,10 @@ import FeaturedRooms from "@/components/home/FeaturedRooms";
 import GalleryPreview from "@/components/home/GalleryPreview";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import GuestReview from "@/components/home/GuestReview";
-
+import StatsCounter from "@/components/home/StatsCounter";
+import Reviews from "@/components/home/Reviews";
+import CTA from "@/components/home/CTA";
+import Footer from "@/components/home/Footer";
 export default function Home() {
   return (
     <>
@@ -14,6 +17,8 @@ export default function Home() {
       <GalleryPreview />
       <WhyChooseUs />
       <GuestReview />
+        <CTA />
+      <Footer />
     </>
   );
 }
