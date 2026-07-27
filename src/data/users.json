@@ -1,0 +1,20 @@
+[
+  {
+    "id": "7e805e5b-4a3d-4194-894b-3a147da61aaf",
+    "firstName": "besong",
+    "lastName": "robert",
+    "email": "mary20@gmail.com",
+    "phone": "676775659",
+    "password": "$2b$12$v2Hq.MnuDMFL1ewZxZuzZOU3g5K8lrkbbnJs6pYfa2taZ/Sbb57cW",
+    "createdAt": "2026-07-27T03:24:41.381Z"
+  },
+  {
+    "id": "f6c8123a-c835-4614-b2bc-95dc2fb5de51",
+    "firstName": "loveline",
+    "lastName": "rose",
+    "email": "mary30@gmail.com",
+    "phone": "676775654",
+    "password": "$2b$12$T7vCZpXGDysh.VN8F0jgMuSDueRxrHIh2egK0RcWyt/Vl3Hh8OGte",
+    "createdAt": "2026-07-27T03:26:11.720Z"
+  }
+]
