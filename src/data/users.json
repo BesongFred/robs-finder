@@ -15,5 +15,14 @@
     "password": "$2b$12$7XyaKc.uqo5tyl7CAVtpYuxtHCIq7f2jP/juSAJC7ifpdN5yqzdn2",
     "createdAt": "2026-08-02T19:40:42.151Z",
     "avatar": "/uploads/avatars/9500c0ed-8b17-47fb-8ec4-ebd772fb9345.PNG"
+  },
+  {
+    "id": "5a678170-d4bc-4527-bd8a-ce75bda73c32",
+    "firstName": "fred",
+    "lastName": "batuo",
+    "email": "batuo20@gmail.com",
+    "phone": "676775659",
+    "password": "$2b$12$7G3AC31KWl.iuifzvVDD/.TwJ.QwKtZ37752lRCxGaMDcptGotXt.",
+    "createdAt": "2026-08-03T14:54:14.953Z"
   }
 ]
