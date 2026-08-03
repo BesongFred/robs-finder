@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import { getUsers } from "@/lib/db";
+import { supabase } from "@/lib/supabase";
 
 export async function findUserByEmail(email: string) {
   const users = await getUsers();
@@ -33,9 +34,25 @@ export async function updateUserPassword(
   email: string,
   newPassword: string
 ) {
-  throw new Error(
-    "updateUserPassword is not implemented yet. Migrate this function to Supabase."
-  );
+  const hashedPassword = await hashPassword(newPassword);
+
+  const { data, error } = await supabase
+    .from("users")
+    .update({
+      password: hashedPassword,
+    })
+    .eq("email", email.toLowerCase())
+    .select()
+    .single();
+
+
+  if (error) {
+    console.error("Update password error:", error);
+    return false;
+  }
+
+
+  return !!data;
 }
 
 // TODO: Replace with Supabase UPDATE query
