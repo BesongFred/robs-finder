@@ -1,81 +1,44 @@
 import bcrypt from "bcryptjs";
-// import jwt from "jsonwebtoken";
-import { getUsers, saveUsers } from "./db";
-
-
-// const JWT_SECRET =
-  // process.env.JWT_SECRET || "tambe-secret-key";
-
+import { getUsers } from "@/lib/db";
 
 export async function findUserByEmail(email: string) {
-
-  const users = getUsers();
+  const users = await getUsers();
 
   return users.find(
     (user) => user.email === email.toLowerCase()
   );
-
 }
-
-
 
 export async function verifyPassword(
   plainPassword: string,
   hashedPassword: string
 ) {
-
   return bcrypt.compare(
     plainPassword,
     hashedPassword
   );
-
 }
-
-
 
 export async function hashPassword(
   password: string
 ) {
-
   return bcrypt.hash(
     password,
     10
   );
-
 }
 
-
-
+// TODO: Replace with Supabase UPDATE query
 export async function updateUserPassword(
   email: string,
   newPassword: string
 ) {
-
-  const users = getUsers();
-
-  const userIndex = users.findIndex(
-    (user) =>
-      user.email === email.toLowerCase()
+  throw new Error(
+    "updateUserPassword is not implemented yet. Migrate this function to Supabase."
   );
-
-
-  if (userIndex === -1) {
-    return false;
-  }
-
-
-  users[userIndex].password =
-    await hashPassword(newPassword);
-
-
-  saveUsers(users);
-
-
-  return true;
-
 }
 
-
+// TODO: Replace with Supabase UPDATE query
 export async function updateUser(
   email: string,
   updates: {
@@ -84,24 +47,8 @@ export async function updateUser(
     phone?: string;
     avatar?: string;
   }
-
 ) {
-  const users = getUsers();
-
-  const index = users.findIndex(
-    (user) => user.email === email.toLowerCase()
+  throw new Error(
+    "updateUser is not implemented yet. Migrate this function to Supabase."
   );
-
-  if (index === -1) {
-    return null;
-  }
-
-  users[index] = {
-    ...users[index],
-    ...updates,
-  };
-
-  saveUsers(users);
-
-  return users[index];
 }

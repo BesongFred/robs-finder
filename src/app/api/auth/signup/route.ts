@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { getUsers, saveUsers } from "@/lib/db";
+// import { getUsers, saveUsers } from "@/lib/db";
+import { getUsers, saveUser } from "@/lib/db";
 
 export async function POST(req: Request) {
   try {
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const users = getUsers();
+  const users = await getUsers();
 
     const existingUser = users.find(
       (user) => user.email === email.toLowerCase()
@@ -65,7 +66,7 @@ export async function POST(req: Request) {
 
     users.push(newUser);
 
-    saveUsers(users);
+   await saveUser(newUser);
 
     return NextResponse.json(
       {
@@ -75,19 +76,19 @@ export async function POST(req: Request) {
         status: 201,
       }
     );
-  } catch (error) {
-    console.error("Signup Error:", error);
+} catch (error) {
+  console.error("Signup Error:", error);
 
-    return NextResponse.json(
-      {
-        message:
-          error instanceof Error
-            ? error.message
-            : "Server error",
-      },
-      {
-        status: 500,
-      }
-    );
-  }
+  return NextResponse.json(
+    {
+      error:
+        error instanceof Error
+          ? error.stack
+          : String(error),
+    },
+    {
+      status: 500,
+    }
+  );
+}
 }

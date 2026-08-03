@@ -1,32 +1,55 @@
-import fs from "fs";
-import path from "path";
+import { supabase } from "./supabase";
 import { User } from "@/types/user";
 
 
-const filePath = path.join(
-  process.cwd(),
-  "src/data/users.json"
-);
+export async function getUsers(): Promise<User[]> {
+
+  const { data, error } = await supabase
+    .from("users")
+    .select("*");
 
 
-export function getUsers(): User[] {
+  if (error) {
+    throw error;
+  }
 
-  const file = fs.readFileSync(
-    filePath,
-    "utf-8"
-  );
 
-  return JSON.parse(file);
+  return data.map((user:any) => ({
+    id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    email: user.email,
+    phone: user.phone,
+    password: user.password,
+    avatar: user.avatar,
+    createdAt: user.created_at
+  }));
 
 }
 
 
 
-export function saveUsers(users: User[]) {
+export async function saveUser(user: User) {
 
-  fs.writeFileSync(
-    filePath,
-    JSON.stringify(users, null, 2)
-  );
+  const { data, error } = await supabase
+    .from("users")
+    .insert({
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.email,
+      phone: user.phone,
+      password: user.password,
+      avatar: user.avatar
+    })
+    .select()
+    .single();
+
+
+  if (error) {
+    throw error;
+  }
+
+
+  return data;
 
 }
