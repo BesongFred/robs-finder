@@ -82,7 +82,9 @@ export async function updateUser(
     firstName?: string;
     lastName?: string;
     phone?: string;
+    avatar?: string;
   }
+
 ) {
   const users = getUsers();
 
