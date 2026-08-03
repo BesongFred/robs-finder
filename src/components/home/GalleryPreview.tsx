@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-
+// import { Navbar} from "home";
 const gallery = [
   {
     id: 1,
-    image: "/images/gallery/deluxe.jpg",
+    image: "/images/gallery/Hero114.JPG",
     title: "Luxury Suite",
   },
   {
@@ -18,22 +18,52 @@ const gallery = [
   },
   {
     id: 3,
-    image: "/images/gallery/suite.jpeg",
+    image: "/images/gallery/Hero115.JPG",
     title: "Swimming Pool",
   },
   {
     id: 4,
-    image: "/images/gallery/gallery4.jpg",
+    image: "/images/gallery/Hero111.JPG",
+    title: "Restaurant",
+  },
+    {
+    id: 5,
+    image: "/images/gallery/Hero110.JPG",
+    title: "Restaurant",
+  },
+    {
+    id: 6,
+    image: "/images/gallery/Hero19.JPG",
+    title: "Restaurant",
+  },
+    {
+    id: 7,
+    image: "/images/gallery/Hero18.JPG",
+    title: "Restaurant",
+  },
+    {
+    id: 8,
+    image: "/images/gallery/Hero17.JPG",
+    title: "Restaurant",
+  },
+    {
+    id: 9,
+    image: "/images/gallery/Hero16.PNG",
     title: "Restaurant",
   },
   {
-    id: 5,
-    image: "/images/gallery/gallery5.jpg",
+    id: 10,
+    image: "/images/gallery/Hero13.PNG",
     title: "Executive Room",
   },
   {
-    id: 6,
-    image: "/images/gallery/gallery6.jpg",
+    id: 11,
+    image: "/images/gallery/Hero15.PNG",
+    title: "Garden View",
+  },
+   {
+    id: 12,
+    image: "/images/gallery/Hero122.JPG",
     title: "Garden View",
   },
 ];

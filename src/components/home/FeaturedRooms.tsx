@@ -14,9 +14,9 @@ import {
 const rooms = [
   {
     id: 1,
-    name: "Luxury Suite",
-    image: "/images/rooms/suite.jpg",
-    price: "$180",
+    name: "ROBERT BATUO",
+    image: "/images/rooms/ceo.PNG",
+    price: "BUEA",
     guests: "2 Guests",
     description:
       "Elegant suite with panoramic views, king-size bed and premium amenities.",
@@ -25,8 +25,8 @@ const rooms = [
   {
     id: 2,
     name: "Executive Room",
-    image: "/images/rooms/executive.jpg",
-    price: "$140",
+    image: "/images/rooms/Hero113.JPG",
+    price: "$200",
     guests: "2 Guests",
     description:
       "Perfect for business and leisure travelers seeking comfort and style.",
@@ -35,7 +35,7 @@ const rooms = [
   {
     id: 3,
     name: "Deluxe Room",
-    image: "/images/rooms/deluxe.jpg",
+    image: "/images/rooms/Hero122.JPG",
     price: "$110",
     guests: "2 Guests",
     description:
@@ -63,9 +63,9 @@ export default function FeaturedRooms() {
             Accommodation
           </p>
 
-          <h2 className="text-5xl font-bold mt-3 text-slate-900">
-            Luxury Rooms
-          </h2>
+          <h5 className="text-5xl font-bold mt-3 text-slate-900">
+            Luxury Houses Here just for you 
+          </h5>
 
           <p className="text-slate-600 mt-5 max-w-2xl mx-auto">
             Discover beautifully designed rooms crafted for relaxation,

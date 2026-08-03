@@ -1,10 +1,10 @@
-export interface User {
+export type User = {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone?: string;
   password: string;
   createdAt: string;
-}
-
+  avatar?: string;
+};

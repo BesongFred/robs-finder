@@ -74,11 +74,11 @@ export default function Footer() {
           </h3>
 
           <p className="mt-4 text-gray-400">
-            Email: info@robsfinder.com
+            Email: besongrobert30@gmail.com
           </p>
 
           <p className="mt-2 text-gray-400">
-            Phone: +237 XXX XXX XXX
+            Phone: +237 676775659
           </p>
 
           <p className="mt-2 text-gray-400">

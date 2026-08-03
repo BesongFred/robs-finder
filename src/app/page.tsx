@@ -8,6 +8,7 @@ import StatsCounter from "@/components/home/StatsCounter";
 import Reviews from "@/components/home/Reviews";
 import CTA from "@/components/home/CTA";
 import Footer from "@/components/home/Footer";
+import LogoutButton from "@/components/auth/LogoutButton";
 export default function Home() {
   return (
     <>

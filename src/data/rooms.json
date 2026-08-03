@@ -1,0 +1,44 @@
+[
+  {
+    "id": "room-001",
+    "name": "Luxury Deluxe Suite",
+    "description": "A beautiful premium suite with modern furniture and a relaxing atmosphere.",
+    "image": "/rooms/deluxe.jpg",
+    "price": 120,
+    "capacity": 2,
+    "amenities": [
+      "WiFi",
+      "Air Conditioning",
+      "Smart TV",
+      "Breakfast"
+    ]
+  },
+  {
+    "id": "room-002",
+    "name": "Royal Executive Room",
+    "description": "Elegant room designed for guests who want comfort and luxury.",
+    "image": "/rooms/executive.jpg",
+    "price": 180,
+    "capacity": 3,
+    "amenities": [
+      "WiFi",
+      "Mini Bar",
+      "Ocean View",
+      "Breakfast"
+    ]
+  },
+  {
+    "id": "room-003",
+    "name": "Presidential Villa",
+    "description": "The ultimate private luxury experience at Rob's Finder.",
+    "image": "/rooms/villa.jpg",
+    "price": 300,
+    "capacity": 5,
+    "amenities": [
+      "Private Pool",
+      "WiFi",
+      "Kitchen",
+      "Room Service"
+    ]
+  }
+]
