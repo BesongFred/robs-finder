@@ -152,7 +152,6 @@ avatar:avatarUrl
 );
 
 
-
 return NextResponse.json(
 {
 message:"Avatar uploaded",

@@ -77,7 +77,15 @@ export async function updateUserPassword(
   }
 
 
-  return !!data;
+return {
+  id: data.id,
+  firstName: data.first_name,
+  lastName: data.last_name,
+  email: data.email,
+  phone: data.phone,
+  avatar: data.avatar,
+  createdAt: data.created_at
+};
 
 }
 
