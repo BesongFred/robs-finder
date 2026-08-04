@@ -1,188 +1,185 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyToken } from "@/lib/jwt";
-import fs from "fs";
-import path from "path";
-import { v4 as uuid } from "uuid";
+import { supabase } from "@/lib/supabase";
 import { updateUser } from "@/lib/auth";
+import { v4 as uuid } from "uuid";
 
 
 export async function POST(req: Request) {
 
-  try {
+try {
 
 
-    const cookieStore = await cookies();
+const cookieStore = await cookies();
 
-    const token = cookieStore.get("tambe_token")?.value;
+const token =
+cookieStore.get("tambe_token")?.value;
 
 
-    if (!token) {
 
-      return NextResponse.json(
-        {
-          message: "Not authenticated"
-        },
-        {
-          status: 401
-        }
-      );
+if(!token){
 
-    }
+return NextResponse.json(
+{
+message:"Not authenticated"
+},
+{
+status:401
+}
+);
 
+}
 
 
-    const decoded: any = verifyToken(token);
 
+const decoded:any =
+verifyToken(token);
 
 
-    const formData = await req.formData();
 
+const formData =
+await req.formData();
 
-    const file = formData.get("file") as File;
 
 
+const file =
+formData.get("file") as File;
 
-    if (!file) {
 
-      return NextResponse.json(
-        {
-          message: "No file uploaded"
-        },
-        {
-          status: 400
-        }
-      );
 
-    }
+if(!file){
 
+return NextResponse.json(
+{
+message:"No file uploaded"
+},
+{
+status:400
+}
+);
 
+}
 
-    // Check image type
 
-    if (!file.type.startsWith("image/")) {
 
-      return NextResponse.json(
-        {
-          message: "Only images are allowed"
-        },
-        {
-          status: 400
-        }
-      );
 
-    }
+if(!file.type.startsWith("image/")){
 
+return NextResponse.json(
+{
+message:"Only images allowed"
+},
+{
+status:400
+}
+);
 
+}
 
-    // Limit size 2MB
 
-    if (file.size > 2 * 1024 * 1024) {
 
-      return NextResponse.json(
-        {
-          message: "Image must be less than 2MB"
-        },
-        {
-          status:400
-        }
-      );
 
-    }
+if(file.size > 2 * 1024 * 1024){
 
+return NextResponse.json(
+{
+message:"Image must be less than 2MB"
+},
+{
+status:400
+}
+);
 
+}
 
-    const bytes = await file.arrayBuffer();
 
-    const buffer = Buffer.from(bytes);
 
+const bytes =
+await file.arrayBuffer();
 
 
-    const uploadDir = path.join(
-      process.cwd(),
-      "public/uploads/avatars"
-    );
+const buffer =
+Buffer.from(bytes);
 
 
 
-    // Create folder if missing
+const fileName =
+`${uuid()}-${file.name}`;
 
-    if (!fs.existsSync(uploadDir)) {
 
-      fs.mkdirSync(
-        uploadDir,
-        {
-          recursive:true
-        }
-      );
 
-    }
+const { error:uploadError } =
+await supabase.storage
+.from("avatars")
+.upload(
+fileName,
+buffer,
+{
+contentType:file.type
+}
+);
 
 
 
-    const fileName =
-      uuid() + path.extname(file.name);
+if(uploadError){
 
+throw uploadError;
 
+}
 
-    const uploadPath =
-      path.join(
-        uploadDir,
-        fileName
-      );
 
 
 
-    fs.writeFileSync(
-      uploadPath,
-      buffer
-    );
+const { data } =
+supabase.storage
+.from("avatars")
+.getPublicUrl(fileName);
 
 
 
-    const avatar =
-      `/uploads/avatars/${fileName}`;
+const avatarUrl =
+data.publicUrl;
 
 
 
-    const user = updateUser(
-      decoded.email,
-      {
-        avatar
-      }
-    );
+const user =
+await updateUser(
+decoded.email,
+{
+avatar:avatarUrl
+}
+);
 
 
 
-    return NextResponse.json({
+return NextResponse.json(
+{
+message:"Avatar uploaded",
+user
+}
+);
 
-      message:"Avatar uploaded",
 
-      user
 
-    });
+}catch(error){
 
+console.error(
+"Avatar upload error:",
+error
+);
 
 
-  } catch(error) {
+return NextResponse.json(
+{
+message:"Upload failed"
+},
+{
+status:500
+}
+);
 
 
-    console.error(error);
-
-
-    return NextResponse.json(
-
-      {
-        message:"Upload failed"
-      },
-
-      {
-        status:500
-      }
-
-    );
-
-
-  }
+}
 
 }
