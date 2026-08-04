@@ -18,7 +18,7 @@ export default async function RoomsPage() {
         <div className="absolute inset-0">
 
           <Image
-            src="/images/luxury-room.jpg"
+            src="/images/gallry/Hero11.PNG"
             alt="Luxury rooms at Rob's Finder Guest House"
             fill
             priority
