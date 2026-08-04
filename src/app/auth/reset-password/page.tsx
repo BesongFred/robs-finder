@@ -1,117 +1,376 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-
-
-export default function ResetPasswordPage(){
-
-const router = useRouter()
-
-const [email,setEmail] = useState("")
-const [password,setPassword] = useState("")
-const [message,setMessage] = useState("")
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
-async function handleSubmit(e:React.FormEvent){
+export default function SigninPage() {
 
-e.preventDefault()
-
-const res = await fetch(
-"/api/auth/reset-password",
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-email,
-password
-})
-}
-)
+  const router = useRouter();
 
 
-const data = await res.json()
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-setMessage(data.message)
+
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
 
-if(res.ok){
 
-setTimeout(()=>{
-router.push("/auth/signin")
-},1500)
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ) {
 
-}
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
 
-}
+  }
+
+
+
+
+  async function handleLogin() {
+
+    setLoading(true);
+    setMessage("");
+
+
+    try {
+
+      const response =
+        await fetch(
+          "/api/auth/signin",
+          {
+            method:"POST",
+            headers:{
+              "Content-Type":"application/json",
+            },
+            credentials:"include",
+            body:JSON.stringify(form),
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+
+      if(!response.ok){
+
+        setMessage(
+          data.message
+        );
+
+        return;
+
+      }
+
+
+
+      router.replace("/");
+
+
+    }catch{
+
+      setMessage(
+        "Something went wrong."
+      );
+
+
+    }finally{
+
+      setLoading(false);
+
+    }
+
+  }
+
+
+
+
+const inputStyle = `
+w-full
+rounded-xl
+border
+border-slate-600
+bg-slate-900
+px-4
+py-3
+text-white
+placeholder:text-slate-400
+outline-none
+focus:border-yellow-500
+focus:ring-2
+focus:ring-yellow-500/30
+`;
+
 
 
 return (
 
-<main className="min-h-screen flex items-center justify-center bg-gray-100">
+<main className="
+min-h-screen
+flex
+items-center
+justify-center
+bg-[#0F172A]
+px-4
+py-10
+">
 
-<div className="bg-white p-8 rounded-xl shadow w-full max-w-md">
 
-<h1 className="text-3xl font-bold mb-6">
-Reset Password
+<div className="
+w-full
+max-w-md
+rounded-2xl
+bg-slate-800
+p-8
+shadow-2xl
+">
+
+
+
+<h1 className="
+text-3xl
+font-bold
+text-white
+">
+
+Welcome Back
+
 </h1>
 
 
-<form
-onSubmit={handleSubmit}
-className="space-y-4"
->
 
-<input
-type="email"
-placeholder="Email"
-value={email}
-onChange={(e)=>setEmail(e.target.value)}
-className="w-full border p-3 rounded"
-/>
+<p className="
+mt-3
+text-slate-300
+">
 
+Sign in to your Rob's Finder account.
 
-<input
-type="password"
-placeholder="New Password"
-value={password}
-onChange={(e)=>setPassword(e.target.value)}
-className="w-full border p-3 rounded"
-/>
-
-
-<button
-className="w-full bg-blue-900 text-white p-3 rounded"
->
-Update Password
-</button>
-
-
-</form>
-
-
-{message && (
-<p className="mt-4">
-{message}
 </p>
-)}
+
+
+
+
+{
+message && (
+
+<div className="
+mt-4
+rounded-xl
+bg-red-500/20
+p-3
+text-red-300
+">
+
+{message}
+
+</div>
+
+)
+
+}
+
+
+
+
+<div className="
+mt-6
+space-y-4
+">
+
+
+<label className="
+block
+text-sm
+text-slate-200
+">
+
+Email Address
+
+</label>
+
+
+<input
+
+name="email"
+
+type="email"
+
+placeholder="Enter your email"
+
+value={form.email}
+
+onChange={handleChange}
+
+className={inputStyle}
+
+/>
+
+
+
+
+<label className="
+block
+text-sm
+text-slate-200
+">
+
+Password
+
+</label>
+
+
+<input
+
+name="password"
+
+type="password"
+
+placeholder="Enter your password"
+
+value={form.password}
+
+onChange={handleChange}
+
+className={inputStyle}
+
+/>
+
+
+
+
+
+<div className="
+flex
+items-center
+justify-between
+text-sm
+text-slate-300
+">
+
+
+<label className="flex items-center">
+
+<input
+type="checkbox"
+className="mr-2"
+/>
+
+Remember me
+
+</label>
+
 
 
 <Link
-href="/auth/signin"
-className="block mt-5 text-blue-900"
+
+href="/auth/forgot-password"
+
+className="
+text-yellow-400
+hover:text-yellow-300
+"
+
 >
-Back to Login
+
+Forgot Password?
+
 </Link>
+
 
 
 </div>
 
+
+
+
+
+<button
+
+onClick={handleLogin}
+
+disabled={loading}
+
+className="
+w-full
+rounded-xl
+bg-yellow-500
+py-3
+font-bold
+text-slate-900
+transition
+hover:bg-yellow-400
+disabled:opacity-60
+"
+
+>
+
+{
+loading
+?
+"Signing In..."
+:
+"Sign In"
+}
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+<p className="
+mt-6
+text-center
+text-sm
+text-slate-300
+">
+
+Don't have an account?
+
+
+<Link
+
+href="/auth/signup"
+
+className="
+ml-2
+font-semibold
+text-yellow-400
+hover:text-yellow-300
+"
+
+>
+
+Create Account
+
+</Link>
+
+
+</p>
+
+
+
+</div>
+
+
 </main>
 
-)
+);
 
 }
