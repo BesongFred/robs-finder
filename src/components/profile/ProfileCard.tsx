@@ -1,119 +1,82 @@
-"use client";
-
-import ProfileAvatar from "./ProfileAvatar";
-
 type User = {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
-  avatar?: string;
   createdAt?: string;
 };
 
 
-type ProfileCardProps = {
-  user: User | null;
-};
 
-
-export default function ProfileCard({ user }: ProfileCardProps) {
-
-  if (!user) {
-    return (
-      <div className="rounded-xl bg-slate-900 p-8 text-white">
-        Unable to load profile.
-      </div>
-    );
-  }
+export default function ProfileCard({
+  user
+}: {
+  user: User;
+}) {
 
 
   return (
 
-<div className="overflow-hidden rounded-2xl bg-[#0F172A] shadow-2xl">
+    <div className="
+      bg-white
+      rounded-3xl
+      shadow-lg
+      border
+      border-gray-100
+      p-8
+    ">
 
 
-      {/* Header */}
-      <div className="flex items-center gap-6 p-8">
+      <h2 className="
+        text-2xl
+        font-bold
+        text-[#0F172A]
+        mb-6
+      ">
+        Personal Information
+      </h2>
 
 
-        <ProfileAvatar
-          avatar={user.avatar}
-          name={`${user.firstName} ${user.lastName}`}
+
+      <div className="
+        space-y-5
+      ">
+
+
+        <Info
+          label="Full Name"
+          value={`${user.firstName} ${user.lastName}`}
         />
 
 
-        <div>
-
-          <h2 className="text-3xl font-bold text-white">
-            {user.firstName} {user.lastName}
-          </h2>
-
-
-          <p className="mt-2 text-slate-300">
-            {user.email}
-          </p>
+        <Info
+          label="Email Address"
+          value={user.email}
+        />
 
 
-        </div>
+        <Info
+          label="Phone Number"
+          value={user.phone || "Not added"}
+        />
 
 
-      </div>
+        <Info
+          label="Member Since"
+          value={
+            user.createdAt
+            ? new Date(user.createdAt)
+              .toLocaleDateString()
+            : "Recently"
+          }
+        />
 
 
-
-      {/* Details */}
-
-      <div className="grid gap-6 p-8 md:grid-cols-2">
-
-
-        <div>
-          <p className="text-sm text-slate-500">
-            First Name
-          </p>
-
-          <p className="font-semibold text-white">
-            {user.firstName}
-          </p>
-        </div>
-
-
-
-        <div>
-          <p className="text-sm text-slate-500">
-            Last Name
-          </p>
-
-          <p className="font-semibold text-white">
-            {user.lastName}
-          </p>
-        </div>
-
-
-
-        <div>
-          <p className="text-sm text-slate-500">
-            Email
-          </p>
-
-          <p className="font-semibold text-white">
-            {user.email}
-          </p>
-        </div>
-
-
-
-        <div>
-          <p className="text-sm text-slate-500">
-            Phone
-          </p>
-
-          <p className="font-semibold text-white">
-            {user.phone || "Not provided"}
-          </p>
-        </div>
-
+        <Info
+          label="Account ID"
+          value={user.id || "N/A"}
+        />
 
 
       </div>
@@ -122,4 +85,49 @@ export default function ProfileCard({ user }: ProfileCardProps) {
     </div>
 
   );
+
+}
+
+
+
+
+function Info({
+  label,
+  value
+}: {
+  label:string;
+  value:string;
+}) {
+
+
+  return (
+
+    <div className="
+      bg-[#F8FAFC]
+      rounded-xl
+      p-4
+    ">
+
+      <p className="
+        text-sm
+        text-gray-500
+      ">
+        {label}
+      </p>
+
+
+      <p className="
+        mt-1
+        font-semibold
+        text-[#0F172A]
+        break-all
+      ">
+        {value}
+      </p>
+
+
+    </div>
+
+  );
+
 }

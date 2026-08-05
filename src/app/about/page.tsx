@@ -1,13 +1,19 @@
+import AboutHero from "@/components/about/AboutHero";
+import OurStory from "@/components/about/OurStory";
+import MissionVision from "@/components/about/MissionVision";
+import WhyChooseUs from "@/components/about/WhyChooseUs";
+import AboutStats from "@/components/about/AboutStats";
+import AboutCTA from "@/components/about/AboutCTA";
+
 export default function AboutPage() {
   return (
-    <main className="min-h-screen p-10">
-      <h1 className="text-4xl font-bold">
-        About Rob's Finder Guest House
-      </h1>
-
-      <p className="mt-4 text-gray-600">
-        Discover comfort, luxury and unforgettable hospitality.
-      </p>
-    </main>
+    <>
+      <AboutHero />
+      <OurStory />
+      <MissionVision />
+      <WhyChooseUs />
+      <AboutStats />
+      <AboutCTA />
+    </>
   );
 }

@@ -4,284 +4,248 @@ import { useState } from "react";
 
 
 type User = {
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
   phone?: string;
-  avatar?: string;
+  avatar?: string | null;
 };
 
-
-type Props = {
-  user: User;
-  onUpdate: (user: User) => void;
-};
 
 
 export default function EditProfileForm({
-  user: initialUser,
+  user,
   onUpdate,
-}: Props) {
+}: {
+  user: User;
+  onUpdate: (user: User) => void;
+}) {
 
 
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [form, setForm] = useState({
+
+    firstName: user.firstName || "",
+
+    lastName: user.lastName || "",
+
+    phone: user.phone || "",
+
+  });
 
 
-  const [user, setUser] = useState<User>(initialUser);
+  const [loading,setLoading] = useState(false);
 
-
-  const [saving, setSaving] = useState(false);
-
-
-  const [message, setMessage] = useState("");
+  const [message,setMessage] = useState("");
 
 
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleChange(
+    e: React.ChangeEvent<HTMLInputElement>
+  ){
+
+    setForm({
+
+      ...form,
+
+      [e.target.name]: e.target.value,
+
+    });
+
+  }
+
+
+
+  async function handleSubmit(
+    e: React.FormEvent
+  ){
 
     e.preventDefault();
 
 
-    setSaving(true);
+    setLoading(true);
 
     setMessage("");
 
 
 
-    const res = await fetch("/api/profile", {
+    try {
 
-      method: "PUT",
 
-      headers: {
-        "Content-Type": "application/json",
-      },
+      const res = await fetch(
+        "/api/profile",
+        {
+          method:"PUT",
 
-      credentials: "include",
+          headers:{
+            "Content-Type":"application/json",
+          },
 
-      body: JSON.stringify({
+          credentials:"include",
 
-        firstName: user.firstName,
-
-        lastName: user.lastName,
-
-        phone: user.phone,
-
-      }),
-
-    });
+          body:JSON.stringify(form),
+        }
+      );
 
 
 
-    const data = await res.json();
+      const data = await res.json();
 
 
 
-    if (res.ok) {
+      if(!res.ok){
 
-        if (selectedFile) {
+        throw new Error(
+          data.message || "Update failed"
+        );
 
-
-  const avatarData = new FormData();
-
-  avatarData.append(
-    "file",
-    selectedFile
-  );
+      }
 
 
-  const avatarRes = await fetch(
-    "/api/profile/avatar",
-    {
-      method:"POST",
-      credentials:"include",
-      body:avatarData
-    }
-  );
-
-
-  const avatarResult =
-    await avatarRes.json();
-
-
-  if(avatarRes.ok){
-
-    onUpdate(avatarResult.user);
-
-  }
-
-}
-
-      setMessage("Profile updated successfully.");
 
       onUpdate(data.user);
 
 
-    } else {
+      setMessage(
+        "Profile updated successfully"
+      );
+
+
+
+    } catch(error:any){
 
       setMessage(
-        data.message || "Unable to update profile."
+        error.message
       );
+
+    } finally {
+
+      setLoading(false);
 
     }
 
-
-    setSaving(false);
-
   }
+
 
 
 
   return (
 
-    <form
-      onSubmit={handleSubmit}
-     className="rounded-2xl bg-[#0F172A] p-8 shadow-2xl"
-    >
+    <div className="
+      bg-white
+      rounded-3xl
+      shadow-lg
+      border
+      border-gray-100
+      p-6
+      md:p-8
+    ">
 
 
-      <h2 className="text-2xl font-bold text-slate-100">
+      <h2 className="
+        text-2xl
+        font-bold
+        text-[#0F172A]
+        mb-6
+      ">
         Edit Profile
       </h2>
 
 
 
-      <div className="mt-6 space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="
+          space-y-5
+        "
+      >
 
 
-
-        <input
-
-           className="w-full rounded-3xl border border-slate-600 bg-white/10 p-3 text-white placeholder-slate-400 outline-none focus:border-[#D4AF37]"
-
-          value={user.firstName ?? ""}
-
-          onChange={(e) =>
-            setUser({
-              ...user,
-              firstName: e.target.value,
-            })
-          }
-
-          placeholder="First Name"
-
+        <Input
+          label="First Name"
+          name="firstName"
+          value={form.firstName}
+          onChange={handleChange}
         />
 
 
 
-        <input
-
-          className="w-full rounded-3xl border p-3"
-
-          value={user.lastName ?? ""}
-
-          onChange={(e) =>
-            setUser({
-              ...user,
-              lastName: e.target.value,
-            })
-          }
-
-          placeholder="Last Name"
-
+        <Input
+          label="Last Name"
+          name="lastName"
+          value={form.lastName}
+          onChange={handleChange}
         />
 
 
 
-        <input
-    className="w-full rounded-3xl border p-3"
-
-          value={user.email ?? ""}
-
-          disabled
-
+        <Input
+          label="Phone Number"
+          name="phone"
+          value={form.phone}
+          onChange={handleChange}
         />
 
 
-
-        <input
-
-          className="w-full rounded-3xl border p-3"
-
-          value={user.phone ?? ""}
-
-          onChange={(e) =>
-            setUser({
-              ...user,
-              phone: e.target.value,
-            })
-          }
-
-          placeholder="Phone Number"
-
-        />
-
-
-
-        {/* Profile Picture Selector */}
 
         <div>
 
-          <label className="mb-2 block font-medium">
-            Profile Picture
+          <label className="
+            text-sm
+            font-medium
+            text-gray-600
+          ">
+            Email
           </label>
 
 
           <input
 
-            type="file"
+            value={user.email}
 
-            accept="image/*"
+            disabled
 
-            onChange={(e) => {
-
-              if (e.target.files?.length) {
-
-                setSelectedFile(
-                  e.target.files[0]
-                );
-
-              }
-
-            }}
-
-            className="w-full rounded-xl border p-3"
+            className="
+              mt-2
+              w-full
+              rounded-xl
+              bg-gray-100
+              border
+              border-gray-200
+              px-4
+              py-3
+              text-gray-500
+            "
 
           />
-
-
-          {
-            selectedFile && (
-
-              <p className="mt-2 text-sm text-slate-500">
-
-                Selected: {selectedFile.name}
-
-              </p>
-
-            )
-          }
-
 
         </div>
 
 
 
 
-
         <button
 
-          type="submit"
+          disabled={loading}
 
-          disabled={saving}
-
-          className="rounded-xl bg-yellow-500 px-6 py-3 font-semibold text-slate-900 transition hover:bg-yellow-400 disabled:opacity-50"
+          className="
+            w-full
+            bg-[#D4AF37]
+            hover:bg-[#b89424]
+            text-black
+            font-bold
+            py-3
+            rounded-xl
+            transition
+            disabled:opacity-50
+          "
 
         >
 
           {
-            saving
-              ? "Saving..."
-              : "Save Changes"
+            loading
+            ? "Saving..."
+            : "Save Changes"
           }
 
 
@@ -289,26 +253,101 @@ export default function EditProfileForm({
 
 
 
-
-
         {
           message && (
 
-            <p className="text-green-600">
-
+            <p className="
+              text-center
+              text-sm
+              font-medium
+              text-[#1E3A8A]
+            ">
               {message}
-
             </p>
 
           )
         }
 
 
-      </div>
+      </form>
 
 
-    </form>
+    </div>
 
   );
+
+}
+
+
+
+
+function Input({
+
+label,
+
+name,
+
+value,
+
+onChange,
+
+}:{
+
+label:string;
+
+name:string;
+
+value:string;
+
+onChange:
+(e:React.ChangeEvent<HTMLInputElement>)=>void;
+
+}){
+
+
+return (
+
+<div>
+
+<label className="
+text-sm
+font-medium
+text-gray-600
+">
+
+{label}
+
+</label>
+
+
+<input
+
+name={name}
+
+value={value}
+
+onChange={onChange}
+
+className="
+mt-2
+w-full
+rounded-xl
+border
+border-gray-200
+px-4
+py-3
+outline-none
+focus:border-[#D4AF37]
+focus:ring-2
+focus:ring-[#D4AF37]/20
+transition
+"
+
+/>
+
+</div>
+
+);
+
 
 }
