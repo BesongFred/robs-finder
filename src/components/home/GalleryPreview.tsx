@@ -16,56 +16,9 @@ const gallery = [
     image: "/images/rooms/fred.JPG",
     title: "Reception",
   },
-  {
-    id: 3,
-    image: "/images/gallery/Hero115.JPG",
-    title: "Swimming Pool",
-  },
-  {
-    id: 4,
-    image: "/images/gallery/Hero111.JPG",
-    title: "Restaurant",
-  },
-    {
-    id: 5,
-    image: "/images/gallery/Hero110.JPG",
-    title: "Restaurant",
-  },
-    {
-    id: 6,
-    image: "/images/gallery/Hero19.JPG",
-    title: "Restaurant",
-  },
-    {
-    id: 7,
-    image: "/images/gallery/Hero18.JPG",
-    title: "Restaurant",
-  },
-    {
-    id: 8,
-    image: "/images/gallery/Hero17.JPG",
-    title: "Restaurant",
-  },
-    {
-    id: 9,
-    image: "/images/gallery/Hero16.PNG",
-    title: "Restaurant",
-  },
-  {
-    id: 10,
-    image: "/images/gallery/Hero13.PNG",
-    title: "Executive Room",
-  },
-  {
-    id: 11,
-    image: "/images/gallery/Hero15.PNG",
-    title: "Garden View",
-  },
-   {
-    id: 12,
-    image: "/images/gallery/Hero122.JPG",
-    title: "Garden View",
-  },
+
+
+
 ];
 
 export default function GalleryPreview() {

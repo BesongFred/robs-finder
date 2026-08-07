@@ -10,7 +10,7 @@ export default function ContactHero() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('/images/contact/contact-hero.jpg')",
+            "url('/images/gallery/Hero11.PNG')",
         }}
       />
 

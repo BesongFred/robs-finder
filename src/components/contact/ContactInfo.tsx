@@ -12,17 +12,17 @@ export default function ContactInfo() {
     {
       icon: MapPin,
       title: "Address",
-      value: "Your Guest House Address",
+      value: "Buea federal's",
     },
     {
       icon: Phone,
       title: "Phone",
-      value: "+000 000 000 000",
+      value: "+237676775659",
     },
     {
       icon: Mail,
       title: "Email",
-      value: "info@robsfinder.com",
+      value: "besongrobert30@gmail.com",
     },
     {
       icon: Clock,
@@ -38,7 +38,7 @@ export default function ContactInfo() {
         <div className="text-center">
 
           <span className="rounded-full bg-[#D4AF37]/10 px-4 py-2 text-sm font-semibold text-[#D4AF37]">
-            GET IN TOUCH
+            GET IN TOUCH WITH US
           </span>
 
           <h2 className="mt-6 text-4xl font-bold text-[#0F172A]">

@@ -40,6 +40,7 @@ export async function GET() {
         lastName: user.lastName,
         email: user.email,
         phone: user.phone,
+        avatar: user .avatar,
         createdAt: user.createdAt,
       },
     });

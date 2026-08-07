@@ -1,5 +1,5 @@
 "use client";
-
+import HomeWelcome from "@/components/home/HomeWelcome";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { BedDouble, Star, ShieldCheck } from "lucide-react";
@@ -18,7 +18,7 @@ export default function Hero() {
 
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/55 to-black/40" />
-
+<HomeWelcome />
       {/* Content */}
       <div className="relative z-10 mx-auto max-w-7xl px-6">
 

@@ -14,6 +14,7 @@ export async function getUsers(): Promise<User[]> {
   }
 
 
+  
   return data.map((user:any) => ({
     id: user.id,
     firstName: user.first_name,

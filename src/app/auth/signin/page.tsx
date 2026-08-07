@@ -73,8 +73,7 @@ export default function SigninPage() {
       }
 
 
-
-      router.replace("/");
+router.replace("/home");
 
 
     }catch{

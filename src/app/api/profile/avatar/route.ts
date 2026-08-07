@@ -10,17 +10,13 @@ export async function POST(req: Request) {
 
   try {
 
-
     const cookieStore = await cookies();
-
 
     const token =
       cookieStore.get("tambe_token")?.value;
 
 
-
     if (!token) {
-
       return NextResponse.json(
         {
           message: "Not authenticated"
@@ -29,19 +25,28 @@ export async function POST(req: Request) {
           status: 401
         }
       );
-
     }
-
 
 
     const decoded: any =
       verifyToken(token);
 
 
+    if (!decoded) {
+      return NextResponse.json(
+        {
+          message: "Invalid token"
+        },
+        {
+          status: 401
+        }
+      );
+    }
+
+
 
     const formData =
       await req.formData();
-
 
 
     const file =
@@ -56,7 +61,7 @@ export async function POST(req: Request) {
           message: "No file uploaded"
         },
         {
-          status: 400
+          status:400
         }
       );
 
@@ -68,10 +73,10 @@ export async function POST(req: Request) {
 
       return NextResponse.json(
         {
-          message: "Only images allowed"
+          message:"Only images allowed"
         },
         {
-          status: 400
+          status:400
         }
       );
 
@@ -79,14 +84,14 @@ export async function POST(req: Request) {
 
 
 
-    if (file.size > 2 * 1024 * 1024) {
+    if(file.size > 2 * 1024 * 1024){
 
       return NextResponse.json(
         {
-          message: "Image must be less than 2MB"
+          message:"Image must be less than 2MB"
         },
         {
-          status: 400
+          status:400
         }
       );
 
@@ -104,37 +109,39 @@ export async function POST(req: Request) {
 
 
     const fileName =
-      `${uuid()}-${file.name.replace(/\s+/g, "-")}`;
+      `${uuid()}-${file.name.replace(/\s+/g,"-")}`;
 
 
 
-    const { error: uploadError } =
+    // Upload image to Supabase Storage
+    const { error: storageError } =
       await supabase.storage
         .from("avatars")
         .upload(
           fileName,
           buffer,
           {
-            contentType: file.type
+            contentType:file.type,
+            upsert:true
           }
         );
 
 
 
-    if (uploadError) {
+    if(storageError){
 
       console.error(
-        "Supabase upload error:",
-        uploadError
+        "Storage error:",
+        storageError
       );
 
 
       return NextResponse.json(
         {
-          message: "Storage upload failed"
+          message:"Storage upload failed"
         },
         {
-          status: 500
+          status:500
         }
       );
 
@@ -142,6 +149,7 @@ export async function POST(req: Request) {
 
 
 
+    // Get public URL
     const { data } =
       supabase.storage
         .from("avatars")
@@ -154,6 +162,7 @@ export async function POST(req: Request) {
 
 
 
+    // Save URL in users table
     const user =
       await updateUser(
         decoded.email,
@@ -166,16 +175,15 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        message: "Avatar uploaded successfully",
-        avatar: avatarUrl,
+        message:"Avatar uploaded successfully",
+        avatar:avatarUrl,
         user
       }
     );
 
 
 
-  } catch (error) {
-
+  } catch(error){
 
     console.error(
       "Avatar upload error:",
@@ -185,10 +193,10 @@ export async function POST(req: Request) {
 
     return NextResponse.json(
       {
-        message: "Upload failed"
+        message:"Upload failed"
       },
       {
-        status: 500
+        status:500
       }
     );
 

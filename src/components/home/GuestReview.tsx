@@ -54,7 +54,7 @@ export default function GuestReviews() {
           </p>
 
           <h2 className="mt-3 text-5xl font-bold text-slate-900">
-            What Our Guests Say
+            What Our Guests say about you will def
           </h2>
 
           <p className="mt-5 max-w-2xl mx-auto text-slate-600 leading-8">

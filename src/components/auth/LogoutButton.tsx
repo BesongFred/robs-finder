@@ -3,21 +3,34 @@
 import { useRouter } from "next/navigation";
 
 export default function LogoutButton() {
+
   const router = useRouter();
 
-  async function handleLogout() {
+
+  async function logout(){
+
     await fetch("/api/auth/logout", {
-      method: "POST",
+      method:"POST",
     });
 
+
     router.replace("/auth/signin");
-    router.refresh();
+
   }
+
 
   return (
     <button
-      onClick={handleLogout}
-      className="rounded-xl bg-red-600 px-5 py-2 text-white hover:bg-red-700"
+      onClick={logout}
+      className="
+        rounded-lg
+        bg-red-500
+        px-5
+        py-2
+        font-semibold
+        text-white
+        hover:bg-red-600
+      "
     >
       Logout
     </button>
