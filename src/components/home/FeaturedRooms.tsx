@@ -1,167 +1,395 @@
 "use client";
 
-import Image from "next/image";
+import HomeWelcome from "@/components/home/HomeWelcome";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Users,
-  Wifi,
-  Coffee,
-  Bath,
-  ArrowRight,
+  BedDouble,
+  Star,
+  ShieldCheck,
 } from "lucide-react";
 
-const rooms = [
-  {
-    id: 1,
-    name: "ROBERT BATUO",
-    image: "/images/rooms/ceo.PNG",
-    price: "BUEA",
-    guests: "2 Guests",
-    description:
-      "Elegant suite with panoramic views, king-size bed and premium amenities.",
-    amenities: ["Free WiFi", "Breakfast", "Private Bathroom"],
-  },
-  {
-    id: 2,
-    name: "Executive Room",
-    image: "/images/rooms/Hero113.JPG",
-    price: "$200",
-    guests: "2 Guests",
-    description:
-      "Perfect for business and leisure travelers seeking comfort and style.",
-    amenities: ["Free WiFi", "Coffee", "Smart TV"],
-  },
-  {
-    id: 3,
-    name: "Deluxe Room",
-    image: "/images/rooms/Hero122.JPG",
-    price: "$110",
-    guests: "2 Guests",
-    description:
-      "Modern room with luxury bedding and relaxing atmosphere.",
-    amenities: ["Free WiFi", "Breakfast", "Luxury Bathroom"],
-  },
-];
-
-export default function FeaturedRooms() {
+export default function Hero() {
   return (
-    <section
-      id="rooms"
-      className="py-24 bg-slate-50"
-    >
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#050B18]">
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <p className="text-[#D4AF37] uppercase tracking-[5px] text-sm">
-            Accommodation
-          </p>
+      {/* Gemini-style background */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
 
-          <h5 className="text-5xl font-bold mt-3 text-slate-900">
-            Luxury Houses Here just for you 
-          </h5>
+        {/* Main background */}
+        <div className="absolute inset-0 bg-[#050B18]" />
 
-          <p className="text-slate-600 mt-5 max-w-2xl mx-auto">
-            Discover beautifully designed rooms crafted for relaxation,
-            comfort and unforgettable experiences.
-          </p>
-        </motion.div>
+        {/* Top-left blue glow */}
+        <div
+          className="
+            absolute
+            -left-40
+            -top-40
+            h-[600px]
+            w-[600px]
+            rounded-full
+            bg-blue-600/25
+            blur-[140px]
+          "
+        />
 
-        <div className="grid gap-10 lg:grid-cols-3">
+        {/* Center indigo glow */}
+        <div
+          className="
+            absolute
+            left-1/2
+            top-[25%]
+            h-[600px]
+            w-[800px]
+            -translate-x-1/2
+            rounded-full
+            bg-indigo-600/20
+            blur-[160px]
+          "
+        />
 
-          {rooms.map((room, index) => (
-            <motion.div
-              key={room.id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.2,
-              }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              className="overflow-hidden rounded-3xl bg-white shadow-xl"
+        {/* Right cyan glow */}
+        <div
+          className="
+            absolute
+            -right-40
+            top-[15%]
+            h-[550px]
+            w-[550px]
+            rounded-full
+            bg-cyan-500/15
+            blur-[150px]
+          "
+        />
+
+        {/* Bottom blue glow */}
+        <div
+          className="
+            absolute
+            bottom-[-300px]
+            left-1/2
+            h-[700px]
+            w-[900px]
+            -translate-x-1/2
+            rounded-full
+            bg-blue-700/20
+            blur-[170px]
+          "
+        />
+
+        {/* Overall gradient */}
+        <div
+          className="
+            absolute
+            inset-0
+            bg-gradient-to-b
+            from-blue-950/40
+            via-[#050B18]/50
+            to-[#050B18]
+          "
+        />
+
+      </div>
+
+      {/* Welcome */}
+      <HomeWelcome />
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-24">
+
+        <div className="max-w-3xl">
+
+          {/* Small heading */}
+          <motion.p
+            initial={{
+              opacity: 0,
+              y: 30,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              duration: 0.6,
+            }}
+            className="mb-4 uppercase tracking-[6px] text-[#D4AF37]"
+          >
+            Welcome to Rob's Finder
+          </motion.p>
+
+          {/* Main heading */}
+          <motion.h1
+            initial={{
+              opacity: 0,
+              y: 40,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.2,
+              duration: 0.7,
+            }}
+            className="
+              text-5xl
+              font-bold
+              leading-tight
+              text-white
+              md:text-7xl
+            "
+          >
+            Experience Comfort.
+            <br />
+            <span className="text-[#D4AF37]">
+              Experience Luxury.
+            </span>
+          </motion.h1>
+
+          {/* Description */}
+          <motion.p
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              delay: 0.4,
+              duration: 0.7,
+            }}
+            className="
+              mt-8
+              max-w-2xl
+              text-lg
+              leading-8
+              text-slate-300
+            "
+          >
+            Welcome to Rob's Finder Guest House, where exceptional
+            hospitality, elegant rooms, and unforgettable experiences
+            come together to create your perfect stay.
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 0.6,
+              duration: 0.6,
+            }}
+            className="mt-10 flex flex-wrap gap-5"
+          >
+
+            <Link
+              href="/booking"
+              className="
+                rounded-xl
+                bg-[#D4AF37]
+                px-8
+                py-4
+                font-semibold
+                text-[#0F172A]
+                shadow-lg
+                shadow-[#D4AF37]/20
+                transition
+                duration-300
+                hover:scale-105
+                hover:bg-[#F1C75B]
+              "
             >
-              <div className="relative h-72 overflow-hidden">
+              Book Your Stay
+            </Link>
 
-                <Image
-                  src={room.image}
-                  alt={room.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 hover:scale-110"
-                />
+            <Link
+              href="/rooms"
+              className="
+                rounded-xl
+                border
+                border-white/40
+                bg-white/5
+                px-8
+                py-4
+                text-white
+                backdrop-blur-md
+                transition
+                duration-300
+                hover:border-[#D4AF37]
+                hover:bg-white/10
+                hover:text-[#D4AF37]
+              "
+            >
+              Explore Rooms
+            </Link>
 
-                <div className="absolute top-5 left-5 bg-[#D4AF37] text-white px-4 py-2 rounded-full font-semibold">
-                  {room.price}/night
-                </div>
-
-              </div>
-
-              <div className="p-7">
-
-                <h3 className="text-2xl font-bold text-slate-900">
-                  {room.name}
-                </h3>
-
-                <p className="mt-3 text-slate-600 leading-relaxed">
-                  {room.description}
-                </p>
-
-                <div className="flex items-center gap-2 mt-5 text-slate-700">
-                  <Users size={18} />
-                  {room.guests}
-                </div>
-
-                <div className="grid grid-cols-1 gap-3 mt-6">
-
-                  <div className="flex items-center gap-3">
-                    <Wifi
-                      size={18}
-                      className="text-[#D4AF37]"
-                    />
-                    <span>Free High-Speed WiFi</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <Coffee
-                      size={18}
-                      className="text-[#D4AF37]"
-                    />
-                    <span>Complimentary Breakfast</span>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <Bath
-                      size={18}
-                      className="text-[#D4AF37]"
-                    />
-                    <span>Luxury Bathroom</span>
-                  </div>
-
-                </div>
-
-                <Link
-                  href="/rooms"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#0F172A] px-6 py-3 text-white transition hover:bg-[#1E3A8A]"
-                >
-                  View Details
-                  <ArrowRight size={18} />
-                </Link>
-
-              </div>
-            </motion.div>
-          ))}
+          </motion.div>
 
         </div>
 
+        {/* Floating Cards */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 70,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            delay: 0.9,
+            duration: 0.8,
+          }}
+          className="
+            mt-20
+            grid
+            gap-6
+            md:grid-cols-3
+          "
+        >
+
+          {/* Luxury Rooms */}
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/10
+              bg-white/[0.07]
+              p-6
+              shadow-2xl
+              backdrop-blur-xl
+              transition
+              duration-300
+              hover:border-[#D4AF37]/40
+              hover:bg-white/[0.10]
+            "
+          >
+
+            <BedDouble
+              className="mb-4 text-[#D4AF37]"
+              size={34}
+            />
+
+            <h3 className="text-xl font-semibold text-white">
+              Luxury Rooms
+            </h3>
+
+            <p className="mt-2 text-slate-300">
+              Elegant accommodation designed for complete relaxation.
+            </p>
+
+          </div>
+
+          {/* 5-Star Service */}
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/10
+              bg-white/[0.07]
+              p-6
+              shadow-2xl
+              backdrop-blur-xl
+              transition
+              duration-300
+              hover:border-[#D4AF37]/40
+              hover:bg-white/[0.10]
+            "
+          >
+
+            <Star
+              className="mb-4 text-[#D4AF37]"
+              size={34}
+            />
+
+            <h3 className="text-xl font-semibold text-white">
+              5-Star Service
+            </h3>
+
+            <p className="mt-2 text-slate-300">
+              Professional hospitality that exceeds every expectation.
+            </p>
+
+          </div>
+
+          {/* Secure Booking */}
+          <div
+            className="
+              rounded-2xl
+              border
+              border-white/10
+              bg-white/[0.07]
+              p-6
+              shadow-2xl
+              backdrop-blur-xl
+              transition
+              duration-300
+              hover:border-[#D4AF37]/40
+              hover:bg-white/[0.10]
+            "
+          >
+
+            <ShieldCheck
+              className="mb-4 text-[#D4AF37]"
+              size={34}
+            />
+
+            <h3 className="text-xl font-semibold text-white">
+              Secure Booking
+            </h3>
+
+            <p className="mt-2 text-slate-300">
+              Fast, safe and reliable online reservations.
+            </p>
+
+          </div>
+
+        </motion.div>
+
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div
+        animate={{
+          y: [0, 12, 0],
+        }}
+        transition={{
+          repeat: Infinity,
+          duration: 2,
+        }}
+        className="
+          absolute
+          bottom-8
+          left-1/2
+          -translate-x-1/2
+        "
+      >
+
+        <div
+          className="
+            flex
+            h-14
+            w-8
+            justify-center
+            rounded-full
+            border
+            border-white/40
+          "
+        >
+
+          <div className="mt-2 h-3 w-1 rounded-full bg-[#D4AF37]" />
+
+        </div>
+
+      </motion.div>
+
     </section>
   );
 }
